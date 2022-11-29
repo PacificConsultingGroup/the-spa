@@ -1,0 +1,6 @@
+:root {
+    /* Box shadows */
+    --box-shadow-standard: 2px 2px 4px 1px hsla(0, 0%, 0%, 0.1);
+    --box-shadow-hover: 3px 3px 6px 1px hsla(0, 0%, 0%, 0.2);
+    --box-shadow-inset: 2px 2px 3px 0px hsla(0, 0%, 0%, 0.5) inset;
+}
