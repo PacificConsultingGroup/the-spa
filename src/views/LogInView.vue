@@ -1,12 +1,62 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-
+import { gatewayAxios } from '@/lib/gatewayAxios';
+import axios from 'axios';
+import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
+import type { Person } from '@/schema/Person';
 
 const router = useRouter();
 
-function clickHandlerLogIn(ev: MouseEvent) {
+const initialInputValues = {
+    email: '',
+    password: ''
+};
+const inputValuesRef = ref(initialInputValues);
+const inputErrorsRef = ref<{
+    [Property in keyof typeof initialInputValues]?: string
+}>({});
+const formErrorsRef = ref<string[]>([]);
+
+function validateInputOfFormField(fieldName: keyof typeof inputValuesRef.value) {
+    switch (fieldName) {
+        case 'email': {
+            const email = inputValuesRef.value.email;
+            if (!email) return 'Please enter an email';
+            if (!/^.+@.+$/.test(email)) return 'Please enter a valid email';
+            if (email.length > 100) return 'Please enter an email no longer than 100 characters';
+            break;
+        }
+        case 'password': {
+            const password = inputValuesRef.value.password;
+            if (!password) return 'Please enter a password';
+            if (password.length > 100) return 'Please enter a password no longer than 100 characters';
+            break;
+        }
+        default: return;
+    }
+}
+
+async function submitForm() {
+    formErrorsRef.value = [];
+    for (const field of Object.keys(inputValuesRef.value) as (keyof typeof inputValuesRef.value)[]) inputErrorsRef.value[field] = validateInputOfFormField(field);
+    if (Object.values(inputErrorsRef.value).some(inputErrorMessage => !!inputErrorMessage)) return;
+    try {
+        const { data: { person_uuid: personUuid } } = await gatewayAxios.post<{ person_uuid: Person['person_uuid'] }>('/api/auth/login', inputValuesRef.value);
+        localStorage.setItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'), personUuid);
+        router.replace('/home');
+    } catch (err) {
+        console.log(err);
+        if (!axios.isAxiosError(err)) return;
+        if (!err.response) return;
+        if (err.response.status === 401) formErrorsRef.value.push('Email or password may be incorrect');
+    }
+}
+
+/* Click Handlers */
+function clickHandlerLogInButton(ev: MouseEvent) {
     ev.preventDefault();
-    router.push('/home');
+    submitForm();
 }
 
 </script>
@@ -17,19 +67,40 @@ function clickHandlerLogIn(ev: MouseEvent) {
         <div :class="$style.foreground">
             <div :class="$style.logInBox">
                 <h1 :class="$style.logInBoxTitle">MAKE IT HAPPEN</h1>
+                <ul v-if="formErrorsRef.length > 0" :class="$style.logInFailureErrorsContainer">
+                    <li v-for="(formError, i) in formErrorsRef" :key="i" :class="$style.formErrorMessage">
+                        {{ formError }}
+                    </li>
+                </ul>
                 <form :class="$style.logInForm">
                     <form :class="$style.inputGroupsContainer">
                         <div :class="$style.inputGroup">
-                            <label for="username" hidden>Username / Email</label>
-                            <input id="username" for="username" placeholder="Username / Email" />
+                            <label for="email" hidden>Username / Email</label>
+                            <input
+                                id="email"
+                                for="email"
+                                placeholder="Email"
+                                v-model="inputValuesRef.email"
+                                @focusout="(ev) => ev.target === ev.currentTarget ? inputErrorsRef.email = validateInputOfFormField('email') : undefined" />
+                            <p :class="$style.inputErrorMessage">
+                                {{ inputErrorsRef.email }}
+                            </p>
                         </div>
                         <div :class="$style.inputGroup">
                             <label for="password" hidden>Password</label>
-                            <input id="password" for="password" placeholder="Password" />
+                            <input
+                                id="password"
+                                for="password"
+                                placeholder="Password"
+                                v-model="inputValuesRef.password"
+                                @focusout="(ev) => ev.target === ev.currentTarget ? inputErrorsRef.password = validateInputOfFormField('password') : undefined" />
+                            <p :class="$style.inputErrorMessage">
+                                {{ inputErrorsRef.password }}
+                            </p>
                         </div>
                     </form>
                     <a :class="$style.forgotPasswordLink">Forgot your password?</a>
-                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogIn">Sign In</button>
+                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogInButton">Sign In</button>
                     <div :class="$style.loginMethodDivider">or</div>
                     <button :class="$style.azureLoginButton" type="button">Azure Login</button>
                 </form>
@@ -91,6 +162,15 @@ function clickHandlerLogIn(ev: MouseEvent) {
     width: 100%;
     margin-bottom: 10px;
 }
+.logInFailureErrorsContainer {
+    position: relative;
+    font-size: var(--font-size-small);
+    color: var(--color-error-base);
+    align-self: flex-start;
+    list-style: none;
+    padding-left: 5px;
+    margin-bottom: 10px;
+}
 .inputGroupsContainer {
     position: relative;
     display: flex;
@@ -107,6 +187,13 @@ function clickHandlerLogIn(ev: MouseEvent) {
 .inputGroup > input {
     position: relative;
     width: 100%;
+}
+.inputErrorMessage {
+    position: relative;
+    font-size: var(--font-size-small);
+    margin-top: 5px;
+    padding-left: 5px;
+    color: var(--color-error-base);
 }
 .forgotPasswordLink {
     position: relative;
