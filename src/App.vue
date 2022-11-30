@@ -13,16 +13,14 @@ const { scrollYPos, scrollYDirection } = useScrollData();
         ]">
         <RouterView name="TheTopNavBar" v-slot="{ Component }">
             <Transition name="fade">
-                <Component
-                    :is="Component" />
+                <Component :is="Component" />
             </Transition>
         </RouterView>
     </nav>
     <div :class="$style.heroBanner">
         <RouterView name="TheHeroBanner" v-slot="{ Component }">
             <Transition name="fade">
-                <Component
-                    :is="Component" />
+                <Component :is="Component" />
             </Transition>
         </RouterView>
     </div>
@@ -54,7 +52,6 @@ const { scrollYPos, scrollYDirection } = useScrollData();
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0px 40px;
 }
 
 @media (max-width: 800px) {

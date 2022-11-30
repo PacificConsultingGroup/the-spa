@@ -40,12 +40,13 @@ function clickHandlerLogIn(ev: MouseEvent) {
 
 <style module>
 .logInViewWrapper {
-    position: relative;
+    position: absolute;
+    top: 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 .background {
     position: absolute;
