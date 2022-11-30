@@ -5,32 +5,32 @@
 @import './scrollbar.css';
 
 :root {
-    background-color: var(--color-surface-mono-1);
+    background-color: var(--color-surface-mono-0);
 }
 
 /* Text globals */
 p {
     font-size: var(--font-size-regular);
-    color: var(--color-mono-lighter);
+    color: var(--color-mono-light);
 }
 h1 {
     font-size: var(--font-size-largest);
-    color: var(--color-mono-light);
+    color: var(--color-mono-lighter);
     margin-bottom: 10px;
 }
 h2 {
     font-size: var(--font-size-larger);
-    color: var(--color-mono-light);
+    color: var(--color-mono-lighter);
     margin-bottom: 10px;
 }
 h3 {
     font-size: var(--font-size-large);
-    color: var(--color-mono-light);
+    color: var(--color-mono-lighter);
     margin-bottom: 10px;
 }
 a {
     font-size: var(--font-size-regular);
-    color: var(--color-primary-light);
+    color: var(--color-primary-lighter);
     transition: color 100ms ease-out;
     text-decoration: none;
 }

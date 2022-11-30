@@ -7,80 +7,108 @@
     --color-error-base: hsl(0, 95%, 60%);
     --color-error-light: hsl(12, 95%, 72%);
 
-    --color-grey-white: hsl(0, 0%, 100%);
-    --color-grey-offwhite: hsl(0, 0%, 95%);
-    --color-grey-light: hsl(0, 0%, 90%);
-    --color-grey-base: hsl(0, 0%, 70%);
-    --color-grey-base-dark: hsl(0, 0%, 40%);
-    --color-grey-dark: hsl(0, 0%, 20%);
-    --color-grey-offblack: hsl(0, 0%, 12%);
-    --color-grey-black: hsl(0, 0%, 0%);
-
-    --color-primary-dark: hsl(240, 60%, 25%);
-    --color-primary-base: hsl(240, 60%, 40%);
-    --color-primary-light: hsl(240, 60%, 60%);
     --color-primary-lighter: hsl(240, 60%, 70%);
+    --color-primary-light: hsl(240, 60%, 60%);
+    --color-primary-base: hsl(240, 60%, 40%);
+    --color-primary-dark: hsl(240, 60%, 25%);
 
-    --color-surface-primary-1: hsl(240, 20%, 12%);
-    --color-surface-primary-2: hsl(240, 20%, 14%);
-    --color-surface-primary-3: hsl(240, 20%, 16%);
-    --color-surface-primary-4: hsl(240, 20%, 20%);
-    --color-surface-mono-0: hsl(0, 0%, 8%);
-    --color-surface-mono-1: hsl(0, 0%, 12%);
-    --color-surface-mono-2: hsl(0, 0%, 14%);
-    --color-surface-mono-3: hsl(0, 0%, 16%);
-    --color-surface-mono-4: hsl(0, 0%, 20%);
+    /* Dark Theme Colors */
+    --color-surface-primary-1-dark-theme: hsl(240, 20%, 12%);
+    --color-surface-primary-2-dark-theme: hsl(240, 20%, 14%);
+    --color-surface-primary-3-dark-theme: hsl(240, 20%, 16%);
+    --color-surface-primary-4-dark-theme: hsl(240, 20%, 20%);
+    --color-surface-mono-0-dark-theme: hsl(0, 0%, 8%);
+    --color-surface-mono-1-dark-theme: hsl(0, 0%, 12%);
+    --color-surface-mono-2-dark-theme: hsl(0, 0%, 14%);
+    --color-surface-mono-3-dark-theme: hsl(0, 0%, 16%);
+    --color-surface-mono-4-dark-theme: hsl(0, 0%, 20%);
+    --color-mono-lightest-dark-theme: hsl(0, 0%, 100%);
+    --color-mono-lighter-dark-theme: hsl(0, 0%, 95%);
+    --color-mono-light-dark-theme: hsl(0, 0%, 80%);
+    --color-mono-base-dark-theme: hsl(0, 0%, 70%);
+    --color-mono-dark-dark-theme: hsl(0, 0%, 30%);
+    --color-mono-darker-dark-theme: hsl(0, 0%, 20%);
+    --color-mono-darkest-dark-theme: hsl(0, 0%, 12%);
 
-    --color-mono-lightest: var(--color-grey-white);
-    --color-mono-lighter: var(--color-grey-offwhite);
-    --color-mono-light: var(--color-grey-light);
-    --color-mono-base: var(--color-grey-base);
-    --color-mono-dark: var(--color-grey-dark);
-    --color-mono-darker: var(--color-grey-offblack);
-    --color-mono-darkest: var(--color-grey-black);
+    /* Light Theme Colors */
+    --color-surface-primary-1-light-theme: hsl(240, 20%, 12%);
+    --color-surface-primary-2-light-theme: hsl(240, 20%, 14%);
+    --color-surface-primary-3-light-theme: hsl(240, 20%, 16%);
+    --color-surface-primary-4-light-theme: hsl(240, 20%, 20%);
+    --color-surface-mono-0-light-theme: hsl(0, 0%, 80%);
+    --color-surface-mono-1-light-theme: hsl(0, 0%, 90%);
+    --color-surface-mono-2-light-theme: hsl(0, 0%, 93%);
+    --color-surface-mono-3-light-theme: hsl(0, 0%, 96%);
+    --color-surface-mono-4-light-theme: hsl(0, 0%, 98%);
+    --color-mono-lightest-light-theme: hsl(0, 0%, 12%);
+    --color-mono-lighter-light-theme: hsl(0, 0%, 20%);
+    --color-mono-light-light-theme: hsl(0, 0%, 25%);
+    --color-mono-base-light-theme: hsl(0, 0%, 50%);
+    --color-mono-dark-light-theme: hsl(0, 0%, 90%);
+    --color-mono-darker-light-theme: hsl(0, 0%, 95%);
+    --color-mono-darkest-light-theme: hsl(0, 0%, 98%);
+
+    --color-surface-primary-1: var(--color-surface-primary-1-dark-theme);
+    --color-surface-primary-2: var(--color-surface-primary-2-dark-theme);
+    --color-surface-primary-3: var(--color-surface-primary-3-dark-theme);
+    --color-surface-primary-4: var(--color-surface-primary-4-dark-theme);
+    --color-surface-mono-0: var(--color-surface-mono-0-dark-theme);
+    --color-surface-mono-1: var(--color-surface-mono-1-dark-theme);
+    --color-surface-mono-2: var(--color-surface-mono-2-dark-theme);
+    --color-surface-mono-3: var(--color-surface-mono-3-dark-theme);
+    --color-surface-mono-4: var(--color-surface-mono-4-dark-theme);
+    --color-mono-lightest: var(--color-mono-lightest-dark-theme);
+    --color-mono-lighter: var(--color-mono-lighter-dark-theme);
+    --color-mono-light: var(--color-mono-light-dark-theme);
+    --color-mono-base: var(--color-mono-base-dark-theme);
+    --color-mono-dark: var(--color-mono-dark-dark-theme);
+    --color-mono-darker: var(--color-mono-darker-dark-theme);
+    --color-mono-darkest: var(--color-mono-darkest-dark-theme);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --color-mono-lightest: var(--color-grey-white);
-        --color-mono-lighter: var(--color-grey-offwhite);
-        --color-mono-light: var(--color-grey-light);
-        --color-mono-base: var(--color-grey-base);
-        --color-mono-dark: var(--color-grey-dark);
-        --color-mono-darker: var(--color-grey-offblack);
-        --color-mono-darkest: var(--color-grey-black);
-
-        --color-surface-mono-0: hsl(0, 0%, 8%);
-        --color-surface-mono-1: hsl(0, 0%, 12%);
-        --color-surface-mono-2: hsl(0, 0%, 14%);
-        --color-surface-mono-3: hsl(0, 0%, 16%);
-        --color-surface-mono-4: hsl(0, 0%, 20%);
-
-        /* TODO: Adjust primary surface colours accordingly! */
+        --color-surface-primary-1: var(--color-surface-primary-1-dark-theme);
+        --color-surface-primary-2: var(--color-surface-primary-2-dark-theme);
+        --color-surface-primary-3: var(--color-surface-primary-3-dark-theme);
+        --color-surface-primary-4: var(--color-surface-primary-4-dark-theme);
+        --color-surface-mono-0: var(--color-surface-mono-0-dark-theme);
+        --color-surface-mono-1: var(--color-surface-mono-1-dark-theme);
+        --color-surface-mono-2: var(--color-surface-mono-2-dark-theme);
+        --color-surface-mono-3: var(--color-surface-mono-3-dark-theme);
+        --color-surface-mono-4: var(--color-surface-mono-4-dark-theme);
+        --color-mono-lightest: var(--color-mono-lightest-dark-theme);
+        --color-mono-lighter: var(--color-mono-lighter-dark-theme);
+        --color-mono-light: var(--color-mono-light-dark-theme);
+        --color-mono-base: var(--color-mono-base-dark-theme);
+        --color-mono-dark: var(--color-mono-dark-dark-theme);
+        --color-mono-darker: var(--color-mono-darker-dark-theme);
+        --color-mono-darkest: var(--color-mono-darkest-dark-theme);
     }
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        --color-mono-lightest: var(--color-grey-black);
-        --color-mono-lighter: var(--color-grey-offblack);
-        --color-mono-light: var(--color-grey-dark);
-        --color-mono-base: var(--color-grey-base-dark);
-        --color-mono-dark: var(--color-grey-light);
-        --color-mono-darker: var(--color-grey-offwhite);
-        --color-mono-darkest: var(--color-grey-white);
-
-        --color-surface-mono-0: hsl(0, 0%, 80%);
-        --color-surface-mono-1: hsl(0, 0%, 85%);
-        --color-surface-mono-2: hsl(0, 0%, 90%);
-        --color-surface-mono-3: hsl(0, 0%, 96%);
-        --color-surface-mono-4: hsl(0, 0%, 100%);
-
-        /* TODO: Adjust primary surface colours accordingly! */
+        --color-surface-primary-1: var(--color-surface-primary-1-light-theme);
+        --color-surface-primary-2: var(--color-surface-primary-2-light-theme);
+        --color-surface-primary-3: var(--color-surface-primary-3-light-theme);
+        --color-surface-primary-4: var(--color-surface-primary-4-light-theme);
+        --color-surface-mono-0: var(--color-surface-mono-0-light-theme);
+        --color-surface-mono-1: var(--color-surface-mono-1-light-theme);
+        --color-surface-mono-2: var(--color-surface-mono-2-light-theme);
+        --color-surface-mono-3: var(--color-surface-mono-3-light-theme);
+        --color-surface-mono-4: var(--color-surface-mono-4-light-theme);
+        --color-mono-lightest: var(--color-mono-lightest-light-theme);
+        --color-mono-lighter: var(--color-mono-lighter-light-theme);
+        --color-mono-light: var(--color-mono-light-light-theme);
+        --color-mono-base: var(--color-mono-base-light-theme);
+        --color-mono-dark: var(--color-mono-dark-light-theme);
+        --color-mono-darker: var(--color-mono-darker-light-theme);
+        --color-mono-darkest: var(--color-mono-darkest-light-theme);
     }
 
     button {
-        --color-mono-lightest: var(--color-grey-white);
+        --color-mono-lightest: var(--color-mono-darkest-light-theme);
         --color-mono-light: var(--color-primary-base);
     }
     p,

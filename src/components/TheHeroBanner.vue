@@ -21,6 +21,12 @@
     font-size: 36px;
     font-weight: bold;
     filter: drop-shadow(7px 6px 2px hsla(0, 0%, 0%, 0.12));
-    color: var(--color-mono-dark);
+    color: var(--color-mono-base);
+}
+
+@media (prefers-color-scheme: light) {
+    .heroText {
+        color: var(--color-mono-darkest);
+    }
 }
 </style>
