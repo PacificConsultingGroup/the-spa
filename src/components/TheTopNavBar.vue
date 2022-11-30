@@ -1,6 +1,9 @@
 <script setup lang="ts">
 
+import { gatewayAxios } from '@/lib/gatewayAxios';
+import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
 import { Icon } from '@iconify/vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -13,9 +16,19 @@ function clickHandlerHomeButton(ev: MouseEvent) {
     ev.preventDefault();
     router.push('/home');
 }
-function clickHandlerLogOutButton(ev: MouseEvent) {
+async function clickHandlerLogOutButton(ev: MouseEvent) {
     ev.preventDefault();
-    router.push('/login'); // TODO: IMPLEMENT ACTUAL LOG OUT BEHAVIOUR
+    try {
+        await gatewayAxios.post('/auth/logout');
+        localStorage.removeItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
+        router.replace('/login');
+    } catch (err) {
+        console.log(err);
+        if (!axios.isAxiosError(err)) return;
+        if (!err.response) return;
+        if (err.response.status === 500) console.log('Failed to log out!');
+    }
+    router.push('/login');
 }
 
 </script>

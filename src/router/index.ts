@@ -4,6 +4,31 @@ import LogInView from '@/views/LogInView.vue';
 import PreferencesView from '@/views/PreferencesView.vue';
 import TheTopNavBar from '@/components/TheTopNavBar.vue';
 import TheHeroBanner from '@/components/TheHeroBanner.vue';
+import { gatewayAxios } from '@/lib/gatewayAxios';
+import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
+
+async function navGuardRequireUserSession() {
+    const claimedPersonUuid = localStorage.getItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
+    try {
+        const { data: verified } = await gatewayAxios.post('/auth/verify', { person_uuid: claimedPersonUuid });
+        if (!verified) {
+            localStorage.removeItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
+            router.push('/login');
+        }
+    } catch (err) {
+        router.push('/login');
+    }
+}
+
+async function navGuardRequireNoUserSession() {
+    const claimedPersonUuid = localStorage.getItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
+    try {
+        const { data: verified } = await gatewayAxios.post('/auth/verify', { person_uuid: claimedPersonUuid });
+        if (verified) router.push('/home');
+    } catch (err) {
+        return;
+    }
+}
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,13 +39,15 @@ const router = createRouter({
     },
     routes: [
         {
+            path: '/login',
+            name: 'login',
+            component: LogInView,
+            beforeEnter: navGuardRequireNoUserSession
+        },
+        {
             path: '/',
             name: 'root',
-            components: {
-                default: HomeView,
-                TheTopNavBar,
-                TheHeroBanner
-            }
+            redirect: '/home'
         },
         {
             path: '/home',
@@ -29,12 +56,8 @@ const router = createRouter({
                 default: HomeView,
                 TheTopNavBar,
                 TheHeroBanner
-            }
-        },
-        {
-            path: '/login',
-            name: 'login',
-            component: LogInView
+            },
+            beforeEnter: navGuardRequireUserSession
         },
         {
             path: '/preferences',
@@ -43,7 +66,8 @@ const router = createRouter({
                 default: PreferencesView,
                 TheTopNavBar,
                 TheHeroBanner
-            }
+            },
+            beforeEnter: navGuardRequireUserSession
         }
     ]
 });

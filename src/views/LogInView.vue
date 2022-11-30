@@ -42,7 +42,7 @@ async function submitForm() {
     for (const field of Object.keys(inputValuesRef.value) as (keyof typeof inputValuesRef.value)[]) inputErrorsRef.value[field] = validateInputOfFormField(field);
     if (Object.values(inputErrorsRef.value).some(inputErrorMessage => !!inputErrorMessage)) return;
     try {
-        const { data: { person_uuid: personUuid } } = await gatewayAxios.post<{ person_uuid: Person['person_uuid'] }>('/api/auth/login', inputValuesRef.value);
+        const { data: { person_uuid: personUuid } } = await gatewayAxios.post<{ person_uuid: Person['person_uuid'] }>('/auth/login', inputValuesRef.value);
         localStorage.setItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'), personUuid);
         router.replace('/home');
     } catch (err) {
