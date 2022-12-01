@@ -91,6 +91,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                             <input
                                 id="password"
                                 for="password"
+                                type="password"
                                 placeholder="Password"
                                 v-model="inputValuesRef.password"
                                 @focusout="(ev) => ev.target === ev.currentTarget && validateInputOfFormField('password')" />
