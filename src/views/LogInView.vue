@@ -22,15 +22,15 @@ function validateInputOfFormField(fieldName: keyof typeof inputValuesRef.value) 
     switch (fieldName) {
         case 'email': {
             const email = inputValuesRef.value.email;
-            if (!email) return 'Please enter an email';
-            if (!/^.+@.+$/.test(email)) return 'Please enter a valid email';
-            if (email.length > 100) return 'Please enter an email no longer than 100 characters';
+            if (!email) return inputErrorsRef.value.email = 'Please enter an email';
+            if (!/^.+@.+$/.test(email)) return inputErrorsRef.value.email = 'Please enter a valid email';
+            if (email.length > 100) return inputErrorsRef.value.email = 'Please enter an email no longer than 100 characters';
             break;
         }
         case 'password': {
             const password = inputValuesRef.value.password;
-            if (!password) return 'Please enter a password';
-            if (password.length > 100) return 'Please enter a password no longer than 100 characters';
+            if (!password) return inputErrorsRef.value.password = 'Please enter a password';
+            if (password.length > 100) inputErrorsRef.value.password = 'Please enter a password no longer than 100 characters';
             break;
         }
         default: return;
@@ -39,7 +39,7 @@ function validateInputOfFormField(fieldName: keyof typeof inputValuesRef.value) 
 
 async function submitForm() {
     formErrorsRef.value = [];
-    for (const field of Object.keys(inputValuesRef.value) as (keyof typeof inputValuesRef.value)[]) inputErrorsRef.value[field] = validateInputOfFormField(field);
+    for (const field of Object.keys(inputValuesRef.value) as (keyof typeof inputValuesRef.value)[]) validateInputOfFormField(field);
     if (Object.values(inputErrorsRef.value).some(inputErrorMessage => !!inputErrorMessage)) return;
     try {
         const { data: { person_uuid: personUuid } } = await gatewayAxios.post<{ person_uuid: Person['person_uuid'] }>('/auth/login', inputValuesRef.value);
@@ -81,7 +81,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                                 for="email"
                                 placeholder="Email"
                                 v-model="inputValuesRef.email"
-                                @focusout="(ev) => ev.target === ev.currentTarget ? inputErrorsRef.email = validateInputOfFormField('email') : undefined" />
+                                @focusout="(ev) => ev.target === ev.currentTarget && validateInputOfFormField('email')" />
                             <p :class="$style.inputErrorMessage">
                                 {{ inputErrorsRef.email }}
                             </p>
@@ -93,7 +93,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                                 for="password"
                                 placeholder="Password"
                                 v-model="inputValuesRef.password"
-                                @focusout="(ev) => ev.target === ev.currentTarget ? inputErrorsRef.password = validateInputOfFormField('password') : undefined" />
+                                @focusout="(ev) => ev.target === ev.currentTarget && validateInputOfFormField('password')" />
                             <p :class="$style.inputErrorMessage">
                                 {{ inputErrorsRef.password }}
                             </p>
