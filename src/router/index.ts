@@ -13,10 +13,10 @@ async function navGuardRequireUserSession() {
         const { data: verified } = await gatewayAxios.post('/auth/verify', { person_uuid: claimedPersonUuid });
         if (!verified) {
             localStorage.removeItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
-            router.push('/login');
+            router.replace('/login');
         }
     } catch (err) {
-        router.push('/login');
+        router.replace('/login');
     }
 }
 
