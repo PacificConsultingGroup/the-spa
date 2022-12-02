@@ -142,6 +142,7 @@ hr {
 }
 .fade-enter-to,
 .fade-leave-from {
+    transition-delay: 100ms;
     opacity: 1;
 }
 
