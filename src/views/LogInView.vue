@@ -1,27 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { gatewayAxios } from '@/lib/gatewayAxios';
 import axios from 'axios';
 import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
 import type { Person } from '@/schema/Person';
+import { useRequest } from '@/composables/useRequest';
+import { Icon } from '@iconify/vue';
 
 const router = useRouter();
 
+const { launchRequest, isPendingResponse, responseData, responseError } = useRequest();
+
+/* Form handling */
 const initialInputValues = {
     email: '',
     password: ''
 };
 const inputValuesRef = ref(initialInputValues);
-const inputErrorsRef = ref<{
-    [Property in keyof typeof initialInputValues]?: string
-}>({});
+const inputErrorsRef = ref<{ [Property in keyof typeof initialInputValues]?: string }>({});
 const formErrorsRef = ref<string[]>([]);
 
 function validateInputOfFormField(fieldName: keyof typeof inputValuesRef.value) {
     switch (fieldName) {
         case 'email': {
             const email = inputValuesRef.value.email;
+            inputErrorsRef.value.email = '';
             if (!email) return inputErrorsRef.value.email = 'Please enter an email';
             if (!/^.+@.+$/.test(email)) return inputErrorsRef.value.email = 'Please enter a valid email';
             if (email.length > 100) return inputErrorsRef.value.email = 'Please enter an email no longer than 100 characters';
@@ -29,28 +32,29 @@ function validateInputOfFormField(fieldName: keyof typeof inputValuesRef.value) 
         }
         case 'password': {
             const password = inputValuesRef.value.password;
+            inputErrorsRef.value.password = '';
             if (!password) return inputErrorsRef.value.password = 'Please enter a password';
-            if (password.length > 100) inputErrorsRef.value.password = 'Please enter a password no longer than 100 characters';
+            if (password.length > 100) return inputErrorsRef.value.password = 'Please enter a password no longer than 100 characters';
             break;
         }
         default: return;
     }
 }
-
 async function submitForm() {
     formErrorsRef.value = [];
     for (const field of Object.keys(inputValuesRef.value) as (keyof typeof inputValuesRef.value)[]) validateInputOfFormField(field);
     if (Object.values(inputErrorsRef.value).some(inputErrorMessage => !!inputErrorMessage)) return;
-    try {
-        const { data: { person_uuid: personUuid } } = await gatewayAxios.post<{ person_uuid: Person['person_uuid'] }>('/auth/login', inputValuesRef.value);
-        localStorage.setItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'), personUuid);
-        router.replace('/home');
-    } catch (err) {
-        console.log(err);
-        if (!axios.isAxiosError(err)) return;
-        if (!err.response) return;
+    await launchRequest('/auth/login', 'POST', inputValuesRef.value);
+    if (responseError.value) {
+        const err = responseError.value;
+        if (!axios.isAxiosError(err)) throw (err);
+        if (!err.response) return formErrorsRef.value.push('Failed to log in. Please try again later.');
         if (err.response.status === 401) formErrorsRef.value.push('Email or password may be incorrect');
+        return;
     }
+    const personUuid = (responseData.value as { person_uuid: Person['person_uuid'] }).person_uuid;
+    localStorage.setItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'), personUuid);
+    router.replace('/home');
 }
 
 /* Click Handlers */
@@ -101,7 +105,14 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                         </div>
                     </form>
                     <a :class="$style.forgotPasswordLink">Forgot your password?</a>
-                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogInButton">Sign In</button>
+                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogInButton" :disabled="isPendingResponse">
+                        <template v-if="isPendingResponse">
+                            <Icon icon="eos-icons:bubble-loading" /> Signing In...
+                        </template>
+                        <template v-else>
+                            Sign In
+                        </template>
+                    </button>
                     <div :class="$style.loginMethodDivider">or</div>
                     <button :class="$style.azureLoginButton" type="button">Azure Login</button>
                 </form>
