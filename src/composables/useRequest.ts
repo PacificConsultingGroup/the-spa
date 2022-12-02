@@ -7,7 +7,7 @@ export function useRequest() {
     const responseData = ref<unknown | null>(null);
     const responseError = ref<unknown | null>(null);
 
-    async function launchRequest(url: string, verb: 'GET' | 'PUT' | 'POST' | 'DELETE', body?: Record<string, unknown>) {
+    async function send(url: string, verb: 'GET' | 'PUT' | 'POST' | 'DELETE', body?: Record<string, unknown>) {
         isPendingResponse.value = true;
         try {
             switch (verb) {
@@ -39,5 +39,5 @@ export function useRequest() {
         isPendingResponse.value = false;
     }
 
-    return { launchRequest, isPendingResponse, responseData, responseError };
+    return { send, isPendingResponse, responseData, responseError };
 }

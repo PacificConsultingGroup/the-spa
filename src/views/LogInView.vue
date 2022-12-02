@@ -9,7 +9,7 @@ import { Icon } from '@iconify/vue';
 
 const router = useRouter();
 
-const { launchRequest, isPendingResponse, responseData, responseError } = useRequest();
+const logInRequest = useRequest();
 
 /* Form handling */
 const initialInputValues = {
@@ -44,15 +44,15 @@ async function submitForm() {
     formErrorsRef.value = [];
     for (const field of Object.keys(inputValuesRef.value) as (keyof typeof inputValuesRef.value)[]) validateInputOfFormField(field);
     if (Object.values(inputErrorsRef.value).some(inputErrorMessage => !!inputErrorMessage)) return;
-    await launchRequest('/auth/login', 'POST', inputValuesRef.value);
-    if (responseError.value) {
-        const err = responseError.value;
+    await logInRequest.send('/auth/login', 'POST', inputValuesRef.value);
+    if (logInRequest.responseError.value) {
+        const err = logInRequest.responseError.value;
         if (!axios.isAxiosError(err)) throw (err);
         if (!err.response) return formErrorsRef.value.push('Failed to log in. Please try again later.');
         if (err.response.status === 401) formErrorsRef.value.push('Email or password may be incorrect');
         return;
     }
-    const personUuid = (responseData.value as { person_uuid: Person['person_uuid'] }).person_uuid;
+    const personUuid = (logInRequest.responseData.value as { person_uuid: Person['person_uuid'] }).person_uuid;
     localStorage.setItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'), personUuid);
     router.replace('/home');
 }
@@ -105,8 +105,8 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                         </div>
                     </form>
                     <a :class="$style.forgotPasswordLink">Forgot your password?</a>
-                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogInButton" :disabled="isPendingResponse">
-                        <template v-if="isPendingResponse">
+                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogInButton" :disabled="logInRequest.isPendingResponse.value">
+                        <template v-if="logInRequest.isPendingResponse.value">
                             <Icon icon="eos-icons:bubble-loading" /> Signing In...
                         </template>
                         <template v-else>
