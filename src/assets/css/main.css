@@ -110,8 +110,15 @@ button:hover {
 button:disabled {
     cursor: unset;
     background-color: var(--color-mono-dark);
+    border-color: var(--color-mono-dark);
     color: var(--color-mono-base);
-    box-shadow: none;
+    box-shadow: var(--box-shadow-standard);
+}
+button:disabled:hover {
+    cursor: not-allowed;
+    border-color: var(--color-mono-dark);
+    color: var(--color-mono-base);
+    box-shadow: var(--box-shadow-standard);
 }
 button.secondary {
     color: var(--color-mono-light);
