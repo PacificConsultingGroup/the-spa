@@ -29,9 +29,11 @@ const { isOnline, isReconnected } = useNetworkStatus();
     display: grid;
     place-items: center;
     height: 20px;
-    transition: translate 100ms ease-out;
     opacity: 0;
     translate: 0px -100%;
+    transition:
+        translate 100ms ease-out,
+        opacity 100ms ease-out;
 }
 .the-network-status-banner-wrapper::before {
     transition: background-color 100ms ease-out;
@@ -41,7 +43,6 @@ const { isOnline, isReconnected } = useNetworkStatus();
     translate: 0px 0px;
 }
 .the-network-status-banner-wrapper.online {
-    opacity: 0;
     transition:
         translate 100ms ease-out 2000ms,
         opacity 100ms ease-out 2100ms;
@@ -52,7 +53,6 @@ const { isOnline, isReconnected } = useNetworkStatus();
     width: 100%;
     height: 100%;
     background-color: var(--color-error-base);
-    filter: brightness(30%);
 }
 .the-network-status-banner-wrapper.online::before {
     position: absolute;
@@ -60,7 +60,6 @@ const { isOnline, isReconnected } = useNetworkStatus();
     width: 100%;
     height: 100%;
     background-color: var(--color-ok-base);
-    filter: brightness(30%);
 }
 .content-container {
     --color-mono-lightest: var(--color-mono-lightest-dark-theme);
@@ -79,10 +78,10 @@ const { isOnline, isReconnected } = useNetworkStatus();
 
 @media (prefers-color-scheme: light) {
     .the-network-status-banner-wrapper.offline::before {
-        filter: brightness(200%);
+        background-color: var(--color-error-light);
     }
     .the-network-status-banner-wrapper.online::before {
-        filter: brightness(50%);
+        background-color: var(--color-ok-light);
     }
 }
 </style>

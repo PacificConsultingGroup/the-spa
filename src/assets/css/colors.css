@@ -1,7 +1,7 @@
 :root {
     /* Color palette */
-    --color-ok-base: hsl(135, 95%, 60%);
-    --color-ok-light: hsl(135, 95%, 72%);
+    --color-ok-base: hsl(135, 60%, 40%);
+    --color-ok-light: hsl(135, 60%, 60%);
     --color-warn-base: hsl(50, 95%, 60%);
     --color-warn-light: hsl(50, 95%, 72%);
     --color-error-base: hsl(0, 95%, 60%);
@@ -110,11 +110,5 @@
     button {
         --color-mono-lightest: var(--color-mono-darkest-light-theme);
         --color-mono-light: var(--color-primary-base);
-    }
-    p,
-    h1,
-    h2,
-    h3 {
-        filter: brightness(200%);
     }
 }
