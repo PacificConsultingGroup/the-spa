@@ -6,8 +6,13 @@ import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
 import type { Person } from '@/schema/Person';
 import { useRequest } from '@/composables/useRequest';
 import { Icon } from '@iconify/vue';
+import { gatewayAxios } from '@/lib/gatewayAxios';
+import { useUserStore } from '@/stores/useUserStore';
+import camelcaseKeys from 'camelcase-keys';
 
 const router = useRouter();
+
+const userStore = useUserStore();
 
 const logInRequest = useRequest();
 
@@ -54,6 +59,20 @@ async function submitForm() {
     }
     const personUuid = (logInRequest.responseData.value as { person_uuid: Person['person_uuid'] }).person_uuid;
     localStorage.setItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'), personUuid);
+    const person: {
+        person_id: number,
+        person_uuid: string,
+        sso_id: string,
+        email: string,
+        mobile_no: string,
+        first_name: string,
+        last_name: string,
+        position: string,
+        department: string,
+        avatar: string
+    } = (await gatewayAxios.get(`/api/persons/${personUuid}`)).data.person;
+    const user = camelcaseKeys(person);
+    userStore.setUser(user);
     router.replace('/home');
 }
 

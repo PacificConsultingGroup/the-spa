@@ -18,17 +18,16 @@ function clickHandlerHomeButton(ev: MouseEvent) {
 }
 async function clickHandlerLogOutButton(ev: MouseEvent) {
     ev.preventDefault();
+    router.replace('/login');
     try {
         await gatewayAxios.post('/auth/logout');
         localStorage.removeItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
-        router.replace('/login');
     } catch (err) {
         console.log(err);
         if (!axios.isAxiosError(err)) return;
         if (!err.response) return;
         if (err.response.status === 500) console.log('Failed to log out!');
     }
-    router.push('/login');
 }
 
 </script>

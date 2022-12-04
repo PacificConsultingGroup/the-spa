@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "axios": "^1.2.0",
+        "camelcase-keys": "^8.0.2",
         "pinia": "^2.0.26",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6"

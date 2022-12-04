@@ -20,16 +20,6 @@ async function navGuardRequireUserSession() {
     }
 }
 
-async function navGuardRequireNoUserSession() {
-    const claimedPersonUuid = localStorage.getItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
-    try {
-        const { data: verified } = await gatewayAxios.post('/auth/verify', { person_uuid: claimedPersonUuid });
-        if (verified) router.push('/home');
-    } catch (err) {
-        return;
-    }
-}
-
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     scrollBehavior(to, from, savedPosition) {
@@ -41,8 +31,7 @@ const router = createRouter({
         {
             path: '/login',
             name: 'login',
-            component: LogInView,
-            beforeEnter: navGuardRequireNoUserSession
+            component: LogInView
         },
         {
             path: '/',

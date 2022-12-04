@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import ContentPanel from '@/components/ContentPanel.vue';
+import { useUserStore } from '@/stores/useUserStore';
+import { computed, ref } from 'vue';
 
+const userStore = useUserStore();
+
+const userDetailsInputInitialValues = {
+    email: userStore.email,
+    firstName: userStore.firstName,
+    lastName: userStore.lastName
+};
+const userDetailsInputValuesRef = ref(userDetailsInputInitialValues);
+const computedFullName = computed(() => `${userDetailsInputValuesRef.value.firstName} ${userDetailsInputValuesRef.value.lastName}`);
 
 </script>
 
@@ -19,13 +30,13 @@ import ContentPanel from '@/components/ContentPanel.vue';
                     </header>
                     <form class="details-form">
                         <label for="email">Email</label>
-                        <input id="email" type="email" disabled />
+                        <input id="email" type="email" v-model="userDetailsInputValuesRef.email" disabled />
                         <label for="name">Full Name</label>
-                        <input id="name" type="text" disabled />
+                        <input id="name" type="text" v-model="computedFullName" disabled />
                         <label for="first-name">First Name</label>
-                        <input id="first-name" type="text" />
+                        <input id="first-name" type="text" v-model="userDetailsInputValuesRef.firstName" />
                         <label for="last-name">Last Name</label>
-                        <input id="last-name" type="text" />
+                        <input id="last-name" type="text" v-model="userDetailsInputValuesRef.lastName" />
                     </form>
                 </section>
             </ContentPanel>
