@@ -7,24 +7,21 @@ const { scrollYPos, scrollYDirection } = useScrollData();
 
 <template>
     <nav
-        :class="[
-            $style.topNavBar,
-            scrollYPos === 0 || scrollYDirection === 'up' ? $style.extended : $style.retracted
-        ]">
+        :class="`top-nav-bar ${scrollYPos === 0 || scrollYDirection === 'up' ? 'extended' : 'retracted'}`">
         <RouterView name="TheTopNavBar" v-slot="{ Component }">
             <Transition name="fade">
                 <Component :is="Component" />
             </Transition>
         </RouterView>
     </nav>
-    <div :class="$style.heroBanner">
+    <div class="hero-banner">
         <RouterView name="TheHeroBanner" v-slot="{ Component }">
             <Transition name="fade">
                 <Component :is="Component" />
             </Transition>
         </RouterView>
     </div>
-    <main :class="$style.main">
+    <main class="main">
         <RouterView v-slot="{ Component, route }">
             <Transition name="fade">
                 <Component :is="Component" :key="route.path" />
@@ -33,8 +30,8 @@ const { scrollYPos, scrollYDirection } = useScrollData();
     </main>
 </template>
 
-<style module>
-.topNavBar {
+<style scoped>
+.top-nav-bar {
     position: fixed !important;
     width: 100%;
     top: 0px;
@@ -42,10 +39,10 @@ const { scrollYPos, scrollYDirection } = useScrollData();
     box-shadow: var(--box-shadow-standard);
     transition: translate 100ms ease-out;
 }
-.topNavBar.extended {
+.top-nav-bar.extended {
     translate: 0px;
 }
-.topNavBar.retracted {
+.top-nav-bar.retracted {
     translate: 0px -80px;
 }
 .main {
