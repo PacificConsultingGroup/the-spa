@@ -5,7 +5,7 @@
     --color-warn-base: hsl(50, 95%, 60%);
     --color-warn-light: hsl(50, 95%, 72%);
     --color-error-base: hsl(0, 95%, 60%);
-    --color-error-light: hsl(12, 95%, 72%);
+    --color-error-light: hsl(10, 100%, 70%);
 
     --color-primary-lighter: hsl(240, 60%, 70%);
     --color-primary-light: hsl(240, 60%, 60%);

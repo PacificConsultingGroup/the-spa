@@ -15,6 +15,8 @@
 
 <style scoped>
 .unsaved-changes-notice-bar-wrapper {
+    --color-mono-light: var(--color-mono-lightest-dark-theme);
+
     position: relative;
     width: 100%;
     display: grid;
@@ -33,5 +35,11 @@
     width: 100%;
     height: 100%;
     background-color: var(--color-error-base);
+}
+
+@media (prefers-color-scheme: light) {
+    .unsaved-changes-notice-bar-wrapper::before {
+        background-color: var(--color-error-light);
+    }
 }
 </style>
