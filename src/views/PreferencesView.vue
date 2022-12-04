@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import ContentPanel from '@/components/ContentPanel.vue';
+import UnsavedChangesNoticeBar from '@/components/UnsavedChangesNoticeBar.vue';
 import { useUserStore } from '@/stores/useUserStore';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 const userStore = useUserStore();
 
+/* Form handling */
 const userDetailsInputInitialValues = {
     email: userStore.email,
     firstName: userStore.firstName,
     lastName: userStore.lastName
 };
-const userDetailsInputValuesRef = ref(userDetailsInputInitialValues);
+const userDetailsInputValuesRef = ref(structuredClone(userDetailsInputInitialValues));
 const computedFullName = computed(() => `${userDetailsInputValuesRef.value.firstName} ${userDetailsInputValuesRef.value.lastName}`);
+
+const userDetailsHasChanges = computed(() => JSON.stringify(userDetailsInputValuesRef.value) !== JSON.stringify(userDetailsInputInitialValues));
 
 </script>
 
@@ -25,6 +29,7 @@ const computedFullName = computed(() => `${userDetailsInputValuesRef.value.first
                 </header>
                 <hr />
                 <section class="details-section">
+                    <UnsavedChangesNoticeBar v-if="userDetailsHasChanges" />
                     <header>
                         <h2 class="user-details-title">User Details</h2>
                     </header>

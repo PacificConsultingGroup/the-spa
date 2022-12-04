@@ -21,7 +21,7 @@ const initialInputValues = {
     email: '',
     password: ''
 };
-const inputValuesRef = ref(initialInputValues);
+const inputValuesRef = ref(structuredClone(initialInputValues));
 const inputErrorsRef = ref<{ [Property in keyof typeof initialInputValues]?: string }>({});
 const formErrorsRef = ref<string[]>([]);
 
