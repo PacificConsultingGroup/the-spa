@@ -4,13 +4,13 @@
 </script>
 
 <template>
-    <div :class="$style.contentPanelWrapper">
+    <div class="content-panel-wrapper">
         <slot></slot>
     </div>
 </template>
 
-<style module>
-.contentPanelWrapper {
+<style scoped>
+.content-panel-wrapper {
     position: relative;
     background-color: var(--color-surface-mono-3);
     box-shadow: var(--box-shadow-hover);

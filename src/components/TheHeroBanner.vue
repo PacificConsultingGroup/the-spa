@@ -4,20 +4,20 @@
 </script>
 
 <template>
-    <div :class="$style.theHeroBannerWrapper">
-        <h1 :class="$style.heroText">Make It Happen</h1>
+    <div class="the-hero-banner-wrapper">
+        <h1 class="hero-text">Make It Happen</h1>
     </div>
 </template>
 
-<style module>
-.theHeroBannerWrapper {
+<style scoped>
+.the-hero-banner-wrapper {
     position: relative;
     padding-top: 160px;
     padding-bottom: 100px;
     padding-left: 100px;
     background-color: transparent;
 }
-.heroText {
+.hero-text {
     font-size: 36px;
     font-weight: bold;
     filter: drop-shadow(7px 6px 2px hsla(0, 0%, 0%, 0.12));
@@ -25,7 +25,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    .heroText {
+    .hero-text {
         color: var(--color-mono-darkest);
     }
 }

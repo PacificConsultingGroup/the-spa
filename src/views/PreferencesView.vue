@@ -5,19 +5,19 @@ import ContentPanel from '@/components/ContentPanel.vue';
 </script>
 
 <template>
-    <div :class="$style.preferencesViewWrapper">
-        <div :class="$style.panelsContainer">
-            <ContentPanel :class="$style.pagePanel">
+    <div class="preferences-view-wrapper">
+        <div class="panels-container">
+            <ContentPanel class="page-panel">
                 <header>
                     <h1>User Preferences</h1>
                     <p>You can adjust user-specific options here.</p>
                 </header>
                 <hr />
-                <section :class="$style.detailsSection">
+                <section class="details-section">
                     <header>
-                        <h2 :class="$style.userDetailsTitle">User Details</h2>
+                        <h2 class="user-details-title">User Details</h2>
                     </header>
-                    <form :class="$style.detailsForm">
+                    <form class="details-form">
                         <label for="email">Email</label>
                         <input id="email" type="email" disabled />
                         <label for="name">Full Name</label>
@@ -33,8 +33,8 @@ import ContentPanel from '@/components/ContentPanel.vue';
     </div>
 </template> 
 
-<style module>
-.preferencesViewWrapper {
+<style scoped>
+.preferences-view-wrapper {
     position: relative;
     display: flex;
     align-items: center;
@@ -42,18 +42,18 @@ import ContentPanel from '@/components/ContentPanel.vue';
     width: 80%;
     height: 2000px;
 }
-.pagePanel {
+.page-panel {
     position: relative;
     width: 100%;
 }
-.panelsContainer {
+.panels-container {
     position: relative;
     display: flex;
     width: 100%;
     flex-direction: column;
     gap: 16px;
 }
-.detailsForm {
+.details-form {
     position: relative;
     display: grid;
     grid-template-columns: 1fr 4fr;
@@ -63,12 +63,12 @@ import ContentPanel from '@/components/ContentPanel.vue';
 }
 
 @media (max-width: 800px) {
-    .preferencesViewWrapper {
+    .preferences-view-wrapper {
         width: 100%;
     }
 }
 @media (max-width: 650px) {
-    .detailsForm {
+    .details-form {
         grid-auto-rows: max-content;
         grid-template-columns: 1fr;
         row-gap: 8px;

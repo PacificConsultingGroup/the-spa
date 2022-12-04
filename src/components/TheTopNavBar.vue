@@ -34,21 +34,21 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
 </script>
 
 <template>
-    <div :class="$style.theTopNavBarWrapper">
-        <menu :class="$style.buttonsMenu">
+    <div class="the-top-nav-bar-wrapper">
+        <menu class="buttons-menu">
             <button @click="clickHandlerHomeButton">Home</button>
             <button>Add Initiative</button>
             <button @click="clickHandlerPreferencesButton">Preferences</button>
             <button>Administration</button>
-            <button :class="['secondary']" @click="clickHandlerLogOutButton">
+            <button class="secondary" @click="clickHandlerLogOutButton">
                 <Icon icon="entypo:log-out" />
             </button>
         </menu>
     </div>
 </template>
 
-<style module>
-.theTopNavBarWrapper {
+<style scoped>
+.the-top-nav-bar-wrapper {
     position: relative;
     width: 100%;
     height: 60px;
@@ -56,7 +56,7 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
     grid-template: 'left right' 100% / 1fr 4fr;
     padding: 0px 20px;
 }
-.theTopNavBarWrapper::before {
+.the-top-nav-bar-wrapper::before {
     position: absolute;
     content: '';
     background-color: var(--color-surface-mono-3);
@@ -64,7 +64,7 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
     height: 100%;
     z-index: -1;
 }
-.buttonsMenu {
+.buttons-menu {
     position: relative;
     display: flex;
     gap: 8px;
@@ -72,7 +72,7 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
     grid-area: right;
     place-self: center end;
 }
-.buttonsMenu > button {
+.buttons-menu > button {
     height: 40px;
 }
 </style>

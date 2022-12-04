@@ -66,19 +66,19 @@ function clickHandlerLogInButton(ev: MouseEvent) {
 </script>
 
 <template>
-    <div :class="$style.logInViewWrapper">
-        <div :class="$style.background"></div>
-        <div :class="$style.foreground">
-            <div :class="$style.logInBox">
-                <h1 :class="$style.logInBoxTitle">MAKE IT HAPPEN</h1>
-                <ul v-if="formErrorsRef.length > 0" :class="$style.logInFailureErrorsContainer">
-                    <li v-for="(formError, i) in formErrorsRef" :key="i" :class="$style.formErrorMessage">
+    <div class="log-in-view-wrapper">
+        <div class="background"></div>
+        <div class="foreground">
+            <div class="log-in-box">
+                <h1 class="log-in-box-title">MAKE IT HAPPEN</h1>
+                <ul v-if="formErrorsRef.length > 0" class="log-in-failure-errors-container">
+                    <li v-for="(formError, i) in formErrorsRef" :key="i" class="form-error-message">
                         {{ formError }}
                     </li>
                 </ul>
-                <form :class="$style.logInForm">
-                    <form :class="$style.inputGroupsContainer">
-                        <div :class="$style.inputGroup">
+                <form class="log-in-form">
+                    <form class="input-groups-container">
+                        <div class="input-group">
                             <label for="email" hidden>Username / Email</label>
                             <input
                                 id="email"
@@ -86,11 +86,11 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                                 placeholder="Email"
                                 v-model="inputValuesRef.email"
                                 @focusout="(ev) => ev.target === ev.currentTarget && validateInputOfFormField('email')" />
-                            <p :class="$style.inputErrorMessage">
+                            <p class="input-error-message">
                                 {{ inputErrorsRef.email }}
                             </p>
                         </div>
-                        <div :class="$style.inputGroup">
+                        <div class="input-group">
                             <label for="password" hidden>Password</label>
                             <input
                                 id="password"
@@ -99,13 +99,13 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                                 placeholder="Password"
                                 v-model="inputValuesRef.password"
                                 @focusout="(ev) => ev.target === ev.currentTarget && validateInputOfFormField('password')" />
-                            <p :class="$style.inputErrorMessage">
+                            <p class="input-error-message">
                                 {{ inputErrorsRef.password }}
                             </p>
                         </div>
                     </form>
-                    <a :class="$style.forgotPasswordLink">Forgot your password?</a>
-                    <button :class="$style.logInButton" type="button" @click="clickHandlerLogInButton" :disabled="logInRequest.isPendingResponse.value">
+                    <a class="forgot-password-link">Forgot your password?</a>
+                    <button class="log-in-button" type="button" @click="clickHandlerLogInButton" :disabled="logInRequest.isPendingResponse.value">
                         <template v-if="logInRequest.isPendingResponse.value">
                             <Icon icon="eos-icons:bubble-loading" /> Signing In...
                         </template>
@@ -113,16 +113,16 @@ function clickHandlerLogInButton(ev: MouseEvent) {
                             Sign In
                         </template>
                     </button>
-                    <div :class="$style.loginMethodDivider">or</div>
-                    <button :class="$style.azureLoginButton" type="button">Azure Login</button>
+                    <div class="login-method-divider">or</div>
+                    <button class="azure-login-button" type="button">Azure Login</button>
                 </form>
             </div>
         </div>
     </div>
 </template>
 
-<style module>
-.logInViewWrapper {
+<style scoped>
+.log-in-view-wrapper {
     position: absolute;
     top: 0px;
     display: flex;
@@ -148,7 +148,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
         0px 0px 100px hsla(0, 0%, 0%, 0.1);
     background-color: var(--color-surface-mono-1);
 }
-.logInBox {
+.log-in-box {
     position: relative;
     width: 400px;
     background-color: var(--color-surface-mono-2);
@@ -159,14 +159,14 @@ function clickHandlerLogInButton(ev: MouseEvent) {
     flex-direction: column;
     align-items: center;
 }
-.logInBoxTitle {
+.log-in-box-title {
     position: relative;
     text-align: center;
     color: var(--color-mono-light);
     font-family: 'Productivity Suite';
     margin-bottom: 50px;
 }
-.logInForm {
+.log-in-form {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -174,7 +174,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
     width: 100%;
     margin-bottom: 10px;
 }
-.logInFailureErrorsContainer {
+.log-in-failure-errors-container {
     position: relative;
     font-size: var(--font-size-small);
     color: var(--color-error-base);
@@ -183,7 +183,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
     padding-left: 5px;
     margin-bottom: 10px;
 }
-.inputGroupsContainer {
+.input-groups-container {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -192,36 +192,36 @@ function clickHandlerLogInButton(ev: MouseEvent) {
     width: 100%;
     margin-bottom: 30px;
 }
-.inputGroup {
+.input-group {
     position: relative;
     width: 100%;
 }
-.inputGroup > input {
+.input-group > input {
     position: relative;
     width: 100%;
 }
-.inputErrorMessage {
+.input-error-message {
     position: relative;
     font-size: var(--font-size-small);
     margin-top: 5px;
     padding-left: 5px;
     color: var(--color-error-base);
 }
-.forgotPasswordLink {
+.forgot-password-link {
     position: relative;
     align-self: flex-end;
     margin-bottom: 30px;
 }
-.logInButton {
+.log-in-button {
     position: relative;
     width: 100%;
 }
-.loginMethodDivider {
+.login-method-divider {
     font-size: var(--font-size-small);
     color: var(--color-mono-base);
     margin: 20px 0px;
 }
-.loginMethodDivider::before {
+.login-method-divider::before {
     position: absolute;
     content: '';
     translate: 0px 6px;
@@ -230,7 +230,7 @@ function clickHandlerLogInButton(ev: MouseEvent) {
     left: 0px;
     width: 40%;
 }
-.loginMethodDivider::after {
+.login-method-divider::after {
     position: absolute;
     content: '';
     translate: 0px 6px;
@@ -239,18 +239,18 @@ function clickHandlerLogInButton(ev: MouseEvent) {
     right: 0px;
     width: 40%;
 }
-.azureLoginButton {
+.azure-login-button {
     position: relative;
     width: 100%;
 }
 
 @media (max-width: 800px) {
-    .logInBox {
+    .log-in-box {
         width: 70%;
     }
 }
 @media (max-width: 600px) {
-    .logInBox {
+    .log-in-box {
         width: 90%;
     }
 }

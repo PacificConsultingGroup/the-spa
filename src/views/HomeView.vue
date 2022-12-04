@@ -4,13 +4,13 @@
 </script>
 
 <template>
-    <div :class="$style.homeViewWrapper">
+    <div class="home-view-wrapper">
         <p>I am the HomeView page!</p>
     </div>
 </template>
 
-<style module>
-.homeViewWrapper {
+<style scoped>
+.home-view-wrapper {
     position: relative;
     display: flex;
     align-items: center;
