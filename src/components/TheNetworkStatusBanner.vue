@@ -30,16 +30,21 @@ const { isOnline, isReconnected } = useNetworkStatus();
     place-items: center;
     height: 20px;
     transition: translate 100ms ease-out;
+    opacity: 0;
     translate: 0px -100%;
 }
 .the-network-status-banner-wrapper::before {
     transition: background-color 100ms ease-out;
 }
 .the-network-status-banner-wrapper.offline {
+    opacity: 1;
     translate: 0px 0px;
 }
 .the-network-status-banner-wrapper.online {
-    transition: translate 100ms ease-out 2000ms;
+    opacity: 0;
+    transition:
+        translate 100ms ease-out 2000ms,
+        opacity 100ms ease-out 2100ms;
 }
 .the-network-status-banner-wrapper.offline::before {
     position: absolute;
