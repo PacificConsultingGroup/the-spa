@@ -56,7 +56,6 @@ const userDetailsHasChanges = computed(() => JSON.stringify(userDetailsInputValu
     align-items: center;
     flex-direction: column;
     width: 80%;
-    height: 2000px;
 }
 .page-panel {
     position: relative;
