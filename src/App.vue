@@ -6,6 +6,11 @@ const { scrollYPos, scrollYDirection } = useScrollData();
 </script>
 
 <template>
+    <RouterView name="LogInView" v-slot="{ Component, route }">
+        <Transition name="fade">
+            <Component :is="Component" :key="route.path" />
+        </Transition>
+    </RouterView>
     <RouterView name="TheTopNavBar" v-slot="{ Component }" :class="`top-nav-bar ${scrollYPos === 0 || scrollYDirection === 'up' ? 'extended' : 'retracted'}`">
         <Transition name="fade">
             <Component :is="Component" />

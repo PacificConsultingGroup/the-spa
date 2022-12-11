@@ -32,7 +32,9 @@ const router = createRouter({
         {
             path: '/login',
             name: 'login',
-            component: LogInView
+            components: {
+                LogInView
+            }
         },
         {
             path: '/',
