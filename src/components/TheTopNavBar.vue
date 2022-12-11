@@ -5,6 +5,7 @@ import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
 import { Icon } from '@iconify/vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import TheNetworkStatusBanner from './TheNetworkStatusBanner.vue';
 
 const router = useRouter();
 
@@ -33,17 +34,20 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
 </script>
 
 <template>
-    <div class="the-top-nav-bar-wrapper">
-        <menu class="buttons-menu">
-            <button @click="clickHandlerHomeButton">Home</button>
-            <button>Add Initiative</button>
-            <button @click="clickHandlerPreferencesButton">Preferences</button>
-            <button>Administration</button>
-            <button class="secondary" @click="clickHandlerLogOutButton">
-                <Icon icon="entypo:log-out" />
-            </button>
-        </menu>
-    </div>
+    <nav class="the-top-nav-bar-wrapper">
+        <div class="nav-content-container">
+            <menu class="buttons-menu">
+                <button @click="clickHandlerHomeButton">Home</button>
+                <button>Add Initiative</button>
+                <button @click="clickHandlerPreferencesButton">Preferences</button>
+                <button>Administration</button>
+                <button class="secondary" @click="clickHandlerLogOutButton">
+                    <Icon icon="entypo:log-out" />
+                </button>
+            </menu>
+        </div>
+        <TheNetworkStatusBanner class="network-status-banner" />
+    </nav>
 </template>
 
 <style scoped>
@@ -51,17 +55,21 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
     position: relative;
     width: 100%;
     height: 60px;
+}
+.nav-content-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template: 'left right' 100% / 1fr 4fr;
     padding: 0px 20px;
 }
-.the-top-nav-bar-wrapper::before {
+.nav-content-container::before {
     position: absolute;
     content: '';
     background-color: var(--color-surface-mono-3);
     width: 100%;
     height: 100%;
-    z-index: -1;
 }
 .buttons-menu {
     position: relative;
@@ -73,5 +81,10 @@ async function clickHandlerLogOutButton(ev: MouseEvent) {
 }
 .buttons-menu > button {
     height: 40px;
+}
+.network-status-banner {
+    position: relative;
+    width: 100%;
+    z-index: -1;
 }
 </style>

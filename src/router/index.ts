@@ -6,6 +6,7 @@ import TheTopNavBar from '@/components/TheTopNavBar.vue';
 import TheHeroBanner from '@/components/TheHeroBanner.vue';
 import { gatewayAxios } from '@/lib/gatewayAxios';
 import { getEnvVariableValue } from '@/utils/getEnvVariableValue';
+import TheSideNavBar from '@/components/TheSideNavBar.vue';
 
 async function navGuardRequireUserSession() {
     const claimedPersonUuid = localStorage.getItem(getEnvVariableValue('VITE_LS_LOGGED_IN_USER_KEY_NAME'));
@@ -44,6 +45,7 @@ const router = createRouter({
             components: {
                 default: HomeView,
                 TheTopNavBar,
+                TheSideNavBar,
                 TheHeroBanner
             },
             beforeEnter: navGuardRequireUserSession
@@ -54,6 +56,7 @@ const router = createRouter({
             components: {
                 default: PreferencesView,
                 TheTopNavBar,
+                TheSideNavBar,
                 TheHeroBanner
             },
             beforeEnter: navGuardRequireUserSession
